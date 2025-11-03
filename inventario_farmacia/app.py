@@ -1,6 +1,6 @@
 import json
 import customtkinter
-from medicamentos import metodos  # Importa tu clase inventario
+from medicamentos  import metodos  # Importa tu clase inventario
 
 # --- Crear el inventario y cargar los datos ---
 inventario = metodos()
@@ -89,44 +89,51 @@ app.grid_rowconfigure(0, weight=1)
 frame_left = customtkinter.CTkFrame(app)
 frame_left.grid(row=0, column=0, sticky="nsew", padx=20, pady=20)
 
-customtkinter.CTkLabel(frame_left, text="Nombre:").pack(anchor="w")
+frame_right = customtkinter.CTkFrame(app)
+frame_right.grid(row=0, column=1, sticky="nsew", padx=20, pady=20)
+
+frame_right.grid_columnconfigure(0, weight=1)
+frame_right.grid_columnconfigure(1, weight=1)
+frame_right.grid_rowconfigure(3, weight=1) 
+
+customtkinter.CTkLabel(frame_left, text="Nombre:").grid(row=0, column=0, sticky="w")
 entry_nombre = customtkinter.CTkEntry(frame_left, width=200)
-entry_nombre.pack(pady=(0,8))
+entry_nombre.grid(row=1, column=0, sticky="ew", pady=(0,8))
 
-customtkinter.CTkLabel(frame_left, text="Cantidad:").pack(anchor="w")
+customtkinter.CTkLabel(frame_left, text="Cantidad:").grid(row=2, column=0, sticky="w")
 entry_cantidad = customtkinter.CTkEntry(frame_left, width=200)
-entry_cantidad.pack(pady=(0,8))
+entry_cantidad.grid(row=3, column=0, sticky="ew", pady=(0,8))
 
-customtkinter.CTkLabel(frame_left, text="Uso:").pack(anchor="w")
+customtkinter.CTkLabel(frame_left, text="Uso:").grid(row=4, column=0, sticky="w")
 entry_uso = customtkinter.CTkEntry(frame_left, width=200)
-entry_uso.pack(pady=(0,8))
+entry_uso.grid(row=5, column=0, sticky="ew", pady=(0,8))
 
-customtkinter.CTkLabel(frame_left, text="Fecha de vencimiento:").pack(anchor="w")
+customtkinter.CTkLabel(frame_left, text="Fecha de vencimiento:").grid(row=6, column=0, sticky="w")
 entry_fecha = customtkinter.CTkEntry(frame_left, width=200)
-entry_fecha.pack(pady=(0,8))
+entry_fecha.grid(row=7, column=0, sticky="ew", pady=(0,8))
 
 boton_agregar = customtkinter.CTkButton(frame_left, text="Agregar", command=agregar_medicamento_interfaz)
-boton_agregar.pack(pady=(10,0))
+boton_agregar.grid(row=8, column=0, sticky="ew", pady=(10,0))
 
 # --- Panel derecho: buscar/eliminar/listar ---
 frame_right = customtkinter.CTkFrame(app)
 frame_right.grid(row=0, column=1, sticky="nsew", padx=20, pady=20)
 
-customtkinter.CTkLabel(frame_right, text="Buscar/Eliminar por nombre:").pack(anchor="w")
+customtkinter.CTkLabel(frame_right, text="Buscar/Eliminar por nombre:").grid(row=0, column=0, sticky="w")
 entry_buscar = customtkinter.CTkEntry(frame_right, width=300)
-entry_buscar.pack(pady=(0,8))
+entry_buscar.grid(row=1, column=0, sticky="ew", pady=(0,8))
 
 boton_buscar = customtkinter.CTkButton(frame_right, text="Buscar", command=buscar_medicamento_interfaz)
-boton_buscar.pack(side="left", padx=5)
+boton_buscar.grid(row=2, column=0, sticky="w", padx=5)
 
 boton_eliminar = customtkinter.CTkButton(frame_right, text="Eliminar", command=eliminar_medicamento_interfaz)
-boton_eliminar.pack(side="left", padx=5)
+boton_eliminar.grid(row=2, column=1, sticky="w", padx=5)
 
 listbox = customtkinter.CTkTextbox(frame_right, height=200, width=400)
-listbox.pack(fill="both", expand=True, pady=(10,10))
+listbox.grid(row=3, column=0, columnspan=2, sticky="nsew", pady=(10,10))
 
 label_mensaje = customtkinter.CTkLabel(frame_right, text="")
-label_mensaje.pack()
+label_mensaje.grid(row=4, column=0, columnspan=2, sticky="w")
 
 # --- Inicializar lista ---
 actualizar_lista()
