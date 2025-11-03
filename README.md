@@ -20,5 +20,5 @@ Aplicación de escritorio desarrollada en Python con CustomTkinter para gestiona
 - CustomTkinter
 - JSON para almacenamiento local
 
-## Estructura de archivos
+
 
