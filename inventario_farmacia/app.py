@@ -23,6 +23,13 @@ def agregar_medicamento_interfaz():
     if not cantidad.isdigit():
         mostrar_mensaje("Cantidad debe ser numérica.")
         return
+    
+    import datetime
+    try:
+        datetime.datetime.strptime(fecha, "%d/%m/%Y")
+    except ValueError:
+        mostrar_mensaje("Formato de fecha incorrecto. Usa DD/MM/YYYY.")
+        return
 
     inventario.agregar(nombre, cantidad, uso, fecha)
     inventario.almacen()
@@ -74,9 +81,13 @@ app = customtkinter.CTk()
 app.geometry("700x450")
 app.title("Inventario de Medicamentos")
 
+app.grid_columnconfigure(0, weight=1)
+app.grid_columnconfigure(1, weight=3)
+app.grid_rowconfigure(0, weight=1)
+
 # --- Panel izquierdo: agregar medicamentos ---
 frame_left = customtkinter.CTkFrame(app)
-frame_left.pack(side="left", fill="y", padx=20, pady=20)
+frame_left.grid(row=0, column=0, sticky="nsew", padx=20, pady=20)
 
 customtkinter.CTkLabel(frame_left, text="Nombre:").pack(anchor="w")
 entry_nombre = customtkinter.CTkEntry(frame_left, width=200)
@@ -90,7 +101,7 @@ customtkinter.CTkLabel(frame_left, text="Uso:").pack(anchor="w")
 entry_uso = customtkinter.CTkEntry(frame_left, width=200)
 entry_uso.pack(pady=(0,8))
 
-customtkinter.CTkLabel(frame_left, text="Fecha:").pack(anchor="w")
+customtkinter.CTkLabel(frame_left, text="Fecha de vencimiento:").pack(anchor="w")
 entry_fecha = customtkinter.CTkEntry(frame_left, width=200)
 entry_fecha.pack(pady=(0,8))
 
@@ -99,7 +110,7 @@ boton_agregar.pack(pady=(10,0))
 
 # --- Panel derecho: buscar/eliminar/listar ---
 frame_right = customtkinter.CTkFrame(app)
-frame_right.pack(side="right", fill="both", expand=True, padx=20, pady=20)
+frame_right.grid(row=0, column=1, sticky="nsew", padx=20, pady=20)
 
 customtkinter.CTkLabel(frame_right, text="Buscar/Eliminar por nombre:").pack(anchor="w")
 entry_buscar = customtkinter.CTkEntry(frame_right, width=300)
